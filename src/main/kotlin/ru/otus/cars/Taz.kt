@@ -15,8 +15,7 @@ object Taz: Car {
     /**
      * Следит за машиной
      */
-    override val carOutput: CarOutput
-        get() = throw NotImplementedError("Приборов нет")
+    override val carOutput: CarOutput = TazOutput()
 
     /**
      * Получить оборудование
@@ -35,5 +34,33 @@ object Taz: Car {
      */
     override fun wheelToLeft(degrees: Int) {
         throw NotImplementedError("Руля нет")
+    }
+
+    override val tankMouth: TankMouth = TazMouth()
+
+    override fun toString(): String {
+        return "Taz(currentFuelContents=${carOutput.getFuelContents()})"
+    }
+}
+
+class TazOutput : CarOutput {
+    override fun getCurrentSpeed(): Int {
+        throw NotImplementedError("There is no speed meter.")
+    }
+
+    override fun getFuelContents(): Int {
+        return Taz.tankMouth.tank.getContent()
+    }
+}
+
+class TazMouth : TankMouth() {
+    override val mouthType: MouthType = MouthType.TAZ_MOUTH
+    override val tank = BangTank()
+
+    fun fuelPetrol(litres: Int) {
+        println("TazMouth.fuelPetrol($litres)")
+        open()
+        tank.receiveFuel(litres)
+        close()
     }
 }

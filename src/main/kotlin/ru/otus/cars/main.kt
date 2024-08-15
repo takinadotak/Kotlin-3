@@ -1,21 +1,7 @@
 package ru.otus.cars
 
 fun main() {
-    println("\n===> drive cars...")
-    driveCars()
-    println("\n===> inner test...")
-    innerNestedCheck()
-    println("\n===> garage make...")
-    garageMake()
-    println("\n===> model special...")
-    println("\n===> get equipment...")
-    getEquipment()
-    println("\n===> get color...")
-    getColor()
-    println("\n===> tech checks...")
-    techChecks()
-    println("\n===> Taz...")
-    println(Taz.color)
+    buildAndRefuelCars()
 }
 
 fun driveCars() {
@@ -90,4 +76,27 @@ fun repairEngine(car: VazPlatform) {
         is VazEngine.LADA_2107 -> println("Чистка карбюратора у двигателя объемом ${car.engine.volume} куб.см у машины $car")
         is VazEngine.SAMARA_2108 -> println("Угол зажигания у двигателя объемом ${car.engine.volume} куб.см у машины $car")
     }
+}
+
+fun buildAndRefuelCars() {
+    val vaz7 = Togliatti.buildCar(Vaz2107, Car.Plates("123", 77))
+    val vaz8 = Togliatti.buildCar(Vaz2108, Car.Plates("321", 78))
+
+    val carCollection = arrayOf(vaz7, vaz8, Taz)
+
+    println("=== Cars before refuel ===")
+    for (car in carCollection) {
+        println(car.toString())
+    }
+
+    println("=== Cars refuel ===")
+    for (car in carCollection) {
+        BangFuelStation.refuel(car)
+    }
+
+    println("=== Cars after refuel ===")
+    for (car in carCollection) {
+        println(car.toString())
+    }
+
 }

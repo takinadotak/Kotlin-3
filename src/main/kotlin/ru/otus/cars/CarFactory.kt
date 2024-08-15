@@ -10,7 +10,7 @@ interface CarFactory {
     fun buildCar(builder: CarBuilder, plates: Car.Plates): Car
 }
 
-/**
+/**Fi
  * Автозавод в Тольятти (он у нас один такой)
  */
 object Togliatti : CarFactory {
